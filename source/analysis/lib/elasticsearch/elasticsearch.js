@@ -17,12 +17,8 @@
 
 'use strict';
 
-let AWS = require('aws-sdk');
-let creds = new AWS.EnvironmentCredentials('AWS');
-
-const endpoint = process.env.DOMAIN_ENDPOINT;
-const es_index = process.env.ES_INDEX;
-const es_version = process.env.ES_VERSION;
+const es_index = "video_rekognition";
+const client = require('../elasticsearch/connection')
 
 /**
  * Performs operations for interacting with the elasticsearch cluster
@@ -30,7 +26,6 @@ const es_version = process.env.ES_VERSION;
  * @class elasticsearch
  */
 let elasticsearch = (function() {
-
     /**
      * @class elasticsearch
      * @constructor
@@ -45,16 +40,6 @@ let elasticsearch = (function() {
     elasticsearch.prototype.indexDocument = function(doc, cb) {
         console.log('Indexing document:', doc);
 
-        let client = require('elasticsearch').Client({
-            hosts: endpoint,
-            connectionClass: require('http-aws-es'),
-            amazonES: {
-                region: process.env.AWS_REGION,
-                credentials: creds
-            },
-            apiVersion: es_version
-        });
-
         client.index({
             index: es_index,
             type: 'media',
@@ -67,7 +52,6 @@ let elasticsearch = (function() {
             console.trace(error.message);
             cb(error, null);
         });
-
     };
 
     return elasticsearch;

@@ -19,11 +19,14 @@
 
 let AWS = require('aws-sdk');
 
-let creds = new AWS.EnvironmentCredentials('AWS');
-const endpoint = process.env.DOMAIN_ENDPOINT;
-const es_index = process.env.ES_INDEX;
-const es_version = process.env.ES_VERSION;
-const search_result_limit = parseInt(process.env.SEARCH_RESULT_LIMIT);
+// let creds = new AWS.EnvironmentCredentials('AWS');
+// const endpoint = process.env.DOMAIN_ENDPOINT;
+// const es_index = process.env.ES_INDEX;
+// const es_version = process.env.ES_VERSION;
+// const search_result_limit = parseInt(process.env.SEARCH_RESULT_LIMIT);
+
+const es_index = "video_rekognition";
+const client = require('../elasticsearch/connection')
 
 /**
  * Performs search operations on the ElasticSearch cluster
@@ -68,15 +71,15 @@ let search = (function() {
         }
       };
 
-      let client = require('elasticsearch').Client({
-          hosts: endpoint,
-          connectionClass: require('http-aws-es'),
-          amazonES: {
-            region: process.env.AWS_REGION,
-            credentials: creds
-          },
-          apiVersion: es_version
-      });
+      // let client = require('elasticsearch').Client({
+      //     hosts: endpoint,
+      //     connectionClass: require('http-aws-es'),
+      //     amazonES: {
+      //       region: process.env.AWS_REGION,
+      //       credentials: creds
+      //     },
+      //     apiVersion: es_version
+      // });
 
       client.search({
         index: es_index,

@@ -17,8 +17,11 @@
 
 'use strict';
 
-let AWS = require('aws-sdk');
-let creds = new AWS.EnvironmentCredentials('AWS');
+// let AWS = require('aws-sdk');
+// let creds = new AWS.EnvironmentCredentials('AWS');
+
+const es_index = "video_rekognition";
+const client = require('../elasticsearch/connection')
 
 /**
  * Helper function to interact with ElasticSearch Service on behalf of a
@@ -44,11 +47,11 @@ let eshelper = (function() {
 
         console.log('Creating index:', es_index);
 
-        let client = require('elasticsearch').Client({
-            hosts: endpoint,
-            connectionClass: require('http-aws-es'),
-            apiVersion: es_version
-        });
+        // let client = require('elasticsearch').Client({
+        //     hosts: endpoint,
+        //     connectionClass: require('http-aws-es'),
+        //     apiVersion: es_version
+        // });
 
         client.indices.create({
             index: es_index

@@ -17,12 +17,15 @@
 
 'use strict';
 
-let AWS = require('aws-sdk');
-let creds = new AWS.EnvironmentCredentials('AWS');
+// let AWS = require('aws-sdk');
+// let creds = new AWS.EnvironmentCredentials('AWS');
 
-const endpoint = process.env.DOMAIN_ENDPOINT;
-const es_index = process.env.ES_INDEX;
-const es_version = process.env.ES_VERSION;
+//const endpoint = process.env.DOMAIN_ENDPOINT;
+//const es_index = process.env.ES_INDEX;
+//const es_version = process.env.ES_VERSION;
+
+const es_index = "video_rekognition";
+const client = require('../elasticsearch/connection')
 
 /**
  * Gets details for a specific document stored in Amazon ElasticSearch
@@ -46,15 +49,15 @@ let details = (function() {
     details.prototype.getDocument = function(object_id, owner_id, cb) {
         console.log('Getting document for id: ', object_id);
 
-        let client = require('elasticsearch').Client({
-            hosts: endpoint,
-            connectionClass: require('http-aws-es'),
-            amazonES: {
-                region: process.env.AWS_REGION,
-                credentials: creds
-            },
-            apiVersion: es_version
-        });
+        // client.Client({
+        //     hosts: endpoint,
+        //     connectionClass: require('http-aws-es'),
+        //     amazonES: {
+        //         region: process.env.AWS_REGION,
+        //         credentials: creds
+        //     },
+        //     apiVersion: es_version
+        // });
 
         client.get({
             index: es_index,
