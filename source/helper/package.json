@@ -13,7 +13,7 @@
         "http-aws-es": "*",
         "url": "*",
         "https": "*",
-        "uuid": "3.2.1",
+        "uuid": "14.0.0",
         "moment": "*"
     },
     "devDependencies": {
